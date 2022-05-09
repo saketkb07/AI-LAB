@@ -1,0 +1,47 @@
+------------------EXPERIMENT 1--------------------
+Aim :-  To find the maximum number of bananas that can be delivered by camel to the market.
+Procedure:-
+We have a total of 3000 bananas.
+The destination is 1000KMs
+Only 1 mode of transport.
+Camel can carry a maximum of 1000 banana at a time.
+Camel eats a banana every km it travels.
+With all these points, we can say that person won’t we able to transfer any banana
+to the destination as the camel is going to eat all the banana on its way to the
+destination.
+But the trick here is to have intermediate drop points, then, the camel can make
+several short trips in between.
+Also, we try to maintain the number of bananas at each point to be multiple of
+1000.
+
+
+Code:-
+total=int(input('Enter no. of bananas at starting'))
+distance=int(input('Enter distance you want to cover'))
+load_capacity=int(input('Enter max load capacity of your camel'))
+lose=0
+start=total
+for i in range(distance):
+    while start>0:
+        start=start-load_capacity
+#Here if condition is checking that camel doesn't move back if there is only one banana left.
+        if start==1:
+            lose=lose-1#Lose is decreased because if camel try to get remaining one banana he will lose one extra banana for covering that two miles.
+#Here we are increasing lose because for moving backward and forward by one mile two bananas will be lose
+        lose=lose+2
+#Here lose is decreased as in last trip camel will not go back.
+    lose=lose-1
+    start=total-lose
+    if start==0:#Condition to check whether it is possible to take a single banana or not.
+        break
+print(start)
+
+
+Output:-
+Enter no. of bananas at starting:3000
+Enter distance you want to cover:1000
+Enter max load capacity of your camel:1000
+533
+
+
+
