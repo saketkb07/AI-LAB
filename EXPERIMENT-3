@@ -1,0 +1,73 @@
+Aim:- To study Crypt-Arithmetic problem and see the result.
+Procedure:-
+There should be a unique digit to be replaced with a unique alphabet.
+The result should satisfy the predefined arithmetic rules, i.e., 2+2 =4,
+nothing else.
+Digits should be from 0-9 only.
+There should be only one carry forward, while performing the addition
+operation on a problem.
+The problem can be solved from both sides, i.e., lefthand side
+(L.H.S), or righthand side (R.H.S)
+
+
+Code:-
+import itertools
+
+
+def get_value(word, substitution):
+    s = 0
+    factor = 1
+    for letter in reversed(word):
+        s += factor * substitution[letter]
+        factor *= 10
+    return s
+
+
+def solve2(equation):
+    # split equation in left and right
+    left, right = equation.lower().replace(' ', '').split('=')
+    # split words in left part
+    left = left.split('+')
+    # create list of used letters
+    letters = set(right)
+    for word in left:
+        for letter in word:
+            letters.add(letter)
+    letters = list(letters)
+
+    digits = range(10)
+    for perm in itertools.permutations(digits, len(letters)):
+        sol = dict(zip(letters, perm))
+
+        if sum(get_value(word, sol) for word in left) == get_value(right, sol):
+            print(' + '.join(str(get_value(word, sol)) for word in left) + " = {} (mapping: {})".format(get_value(right, sol), sol))
+
+if __name__ == '__main__':
+    solve2('SEND + MORE = MONEY')
+
+Output:-
+8432 + 914 = 9346 (mapping: {'r': 1, 'd': 2, 'n': 3, 'o': 9, 's': 8, 'e': 4, 'm': 0, 'y': 6})
+8542 + 915 = 9457 (mapping: {'r': 1, 'd': 2, 'n': 4, 'o': 9, 's': 8, 'e': 5, 'm': 0, 'y': 7})
+8324 + 913 = 9237 (mapping: {'r': 1, 'd': 4, 'n': 2, 'o': 9, 's': 8, 'e': 3, 'm': 0, 'y': 7})
+7429 + 814 = 8243 (mapping: {'r': 1, 'd': 9, 'n': 2, 'o': 8, 's': 7, 'e': 4, 'm': 0, 'y': 3})
+7539 + 815 = 8354 (mapping: {'r': 1, 'd': 9, 'n': 3, 'o': 8, 's': 7, 'e': 5, 'm': 0, 'y': 4})
+7649 + 816 = 8465 (mapping: {'r': 1, 'd': 9, 'n': 4, 'o': 8, 's': 7, 'e': 6, 'm': 0, 'y': 5})
+7531 + 825 = 8356 (mapping: {'r': 2, 'd': 1, 'n': 3, 'o': 8, 's': 7, 'e': 5, 'm': 0, 'y': 6})
+7643 + 826 = 8469 (mapping: {'r': 2, 'd': 3, 'n': 4, 'o': 8, 's': 7, 'e': 6, 'm': 0, 'y': 9})
+6853 + 728 = 7581 (mapping: {'r': 2, 'd': 3, 'n': 5, 'o': 7, 's': 6, 'e': 8, 'm': 0, 'y': 1})
+7534 + 825 = 8359 (mapping: {'r': 2, 'd': 4, 'n': 3, 'o': 8, 's': 7, 'e': 5, 'm': 0, 'y': 9})
+7316 + 823 = 8139 (mapping: {'r': 2, 'd': 6, 'n': 1, 'o': 8, 's': 7, 'e': 3, 'm': 0, 'y': 9})
+6419 + 724 = 7143 (mapping: {'r': 2, 'd': 9, 'n': 1, 'o': 7, 's': 6, 'e': 4, 'm': 0, 'y': 3})
+6851 + 738 = 7589 (mapping: {'r': 3, 'd': 1, 'n': 5, 'o': 7, 's': 6, 'e': 8, 'm': 0, 'y': 9})
+6524 + 735 = 7259 (mapping: {'r': 3, 'd': 4, 'n': 2, 'o': 7, 's': 6, 'e': 5, 'm': 0, 'y': 9})
+6415 + 734 = 7149 (mapping: {'r': 3, 'd': 5, 'n': 1, 'o': 7, 's': 6, 'e': 4, 'm': 0, 'y': 9})
+5849 + 638 = 6487 (mapping: {'r': 3, 'd': 9, 'n': 4, 'o': 6, 's': 5, 'e': 8, 'm': 0, 'y': 7})
+5731 + 647 = 6378 (mapping: {'r': 4, 'd': 1, 'n': 3, 'o': 6, 's': 5, 'e': 7, 'm': 0, 'y': 8})
+5732 + 647 = 6379 (mapping: {'r': 4, 'd': 2, 'n': 3, 'o': 6, 's': 5, 'e': 7, 'm': 0, 'y': 9})
+3719 + 457 = 4176 (mapping: {'r': 5, 'd': 9, 'n': 1, 'o': 4, 's': 3, 'e': 7, 'm': 0, 'y': 6})
+3829 + 458 = 4287 (mapping: {'r': 5, 'd': 9, 'n': 2, 'o': 4, 's': 3, 'e': 8, 'm': 0, 'y': 7})
+3821 + 468 = 4289 (mapping: {'r': 6, 'd': 1, 'n': 2, 'o': 4, 's': 3, 'e': 8, 'm': 0, 'y': 9})
+3712 + 467 = 4179 (mapping: {'r': 6, 'd': 2, 'n': 1, 'o': 4, 's': 3, 'e': 7, 'm': 0, 'y': 9})
+2817 + 368 = 3185 (mapping: {'r': 6, 'd': 7, 'n': 1, 'o': 3, 's': 2, 'e': 8, 'm': 0, 'y': 5})
+2819 + 368 = 3187 (mapping: {'r': 6, 'd': 9, 'n': 1, 'o': 3, 's': 2, 'e': 8, 'm': 0, 'y': 7})
+9567 + 1085 = 10652 (mapping: {'r': 8, 'd': 7, 'n': 6, 'o': 0, 's': 9, 'e': 5, 'm': 1, 'y': 2})
