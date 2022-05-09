@@ -1,0 +1,36 @@
+AIM: To implement the block world problem using correct artificial
+intelligence optimization techniques.
+
+ALGORITHM:
+1.Initialise a stack to store the blocks.
+2.Make sure the stack is empty when HEAD NODE.NEXT =
+NULL
+3.Read the pattern of blocks given label it START STATE
+4.Compare the given pattern to the given final pattern label it
+GOAL STATE
+05.Now start the movement of the blocks one by on either one on
+top or to the floor according to the need.
+6.Keep recording these movements in the empty stack created by
+STACK.PUSH and STACK.POP methods.
+7.Stop the block manipulation when goal state is reached.
+
+OPTIMIZATION TECHNIQUE :
+➢ Here keeping track of movement of the block is the main
+problem, if we keep traversing the floor again and again after
+each move, our time complexity will be O(n^2) which is
+exponentially higher than what is needed and should be
+avoided.
+
+➢ To solve this problem STACK data structure can be used, so
+whenever a movement is made the movement can be
+conveniently stored in the stack which will be initialized as
+empty which HEAD.NEXT = NULL.
+
+➢ When the block is to be added to the sequence of blocks
+simply use STACK.PUSH() to make the movement. And
+when a block is supposed to be removed from the pattern of
+blocks STACK.POP() can be used to make that movement.
+
+➢ Implementing this will bring down the time complexity from
+O(n) and worst case of O(n^2) to O(1) that is unit time which
+is a major optimization from exponential time.
